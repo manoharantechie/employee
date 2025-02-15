@@ -1,0 +1,16 @@
+{
+  "loc_app_name": "Employee Details",
+  "loc_app_list": "Employee List",
+  "loc_app_no_record": "No employee records found",
+  "loc_emp_name": "Employee name",
+  "loc_select_role": "Select role",
+  "loc_today": "Today",
+  "loc_no_date": "No date",
+  "loc_save": "Save",
+  "loc_update": "Update",
+  "loc_cancel": "Cancel",
+  "loc_add_emp_details": "Add Employee Details",
+  "loc_cur_emp_details": "Current employees",
+  "loc_pre_emp_details": "Previous employees",
+  "loc_swipe": "Swipe left to delete"
+}
