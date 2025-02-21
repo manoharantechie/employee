@@ -1,6 +1,7 @@
 import 'package:employee/common/custom_widget.dart';
 import 'package:employee/common/localization/localizations.dart';
 import 'package:employee/common/theme/custom_theme.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -418,10 +419,10 @@ class _DaysPickerState extends State<DaysPicker> {
       late final Size size;
       switch (o) {
         case Orientation.portrait:
-          size = const Size(368.0, 402.0);
+          size = const Size(368.0, kIsWeb?500:402.0);
           break;
         case Orientation.landscape:
-          size = const Size(328.0, 300.0);
+          size = const Size(328.0, kIsWeb?500:300.0);
           break;
       }
 
@@ -731,6 +732,7 @@ class _DaysPickerState extends State<DaysPicker> {
                 Flexible(
                   flex: 1,
                   child: Container(
+                    width:kIsWeb?200: MediaQuery.of(context).size.width,
                     margin: EdgeInsets.only(left: 10.0),
                     padding: EdgeInsets.only(
                         left: 10.0, right: 10.0, top: 8.0, bottom: 8.0),
@@ -751,7 +753,7 @@ class _DaysPickerState extends State<DaysPicker> {
                         ),
                         Flexible(
                           child: Container(
-                            width: MediaQuery.of(context).size.width,
+                            width:kIsWeb?200: MediaQuery.of(context).size.width,
                             child: Text(
                               end_date,
                               style: CustomWidget(context: context)

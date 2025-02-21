@@ -6,10 +6,12 @@ import 'package:employee/common/date/widget/date_picker.dart';
 import 'package:employee/common/localization/localizations.dart';
 import 'package:employee/common/theme/custom_theme.dart';
 import 'package:employee/model/emp_model.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class AddEmpScreen extends StatefulWidget {
   final EmpDetails empDetails;
@@ -295,7 +297,12 @@ class _AddEmpScreenState extends State<AddEmpScreen> {
                   )),
               child: GestureDetector(
                 onTap: () {
-                  chooseRole();
+
+
+
+                 // chooseRole();
+
+                  viewDetails(context);
                 },
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -494,13 +501,13 @@ class _AddEmpScreenState extends State<AddEmpScreen> {
     showModalBottomSheet(
         isScrollControlled: true,
         backgroundColor: Colors.transparent,
-        isDismissible: false,
+        isDismissible: true,
         context: context,
         builder: (BuildContext context) {
-          return StatefulBuilder(
-              builder: (BuildContext context, StateSetter ssetState) {
+
             return Container(
                 width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height*0.35,
                 padding: EdgeInsets.only(top: 10.0),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
@@ -560,7 +567,92 @@ class _AddEmpScreenState extends State<AddEmpScreen> {
                         );
                       })),
                 ));
-          });
+          ;
         });
+  }
+
+  viewDetails(BuildContext contexts) {
+    return showModalBottomSheet(
+        context: contexts,
+        isScrollControlled: true,
+        isDismissible: true,
+        backgroundColor: Colors.transparent,
+        builder: (context) => Padding(
+          padding: EdgeInsets.only(
+              bottom: MediaQuery.of(context).viewInsets.bottom),
+          child: StatefulBuilder(
+              builder: (BuildContext context, StateSetter ssetState) {
+                return Container(
+                  margin: const EdgeInsets.only(top: 5.0),
+                  width: kIsWeb?MediaQuery.of(context).size.width*0.5:MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height*0.32,
+                  padding: const EdgeInsets.only(
+                    right: 5.0,
+                    left: 0.0,
+                  ),
+                  decoration: BoxDecoration(
+                      color: CustomTheme.of(context).cardColor,
+                      borderRadius: const BorderRadius.only(
+                        topRight: Radius.circular(30.0),
+                        topLeft: Radius.circular(30.0),
+                      )),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const SizedBox(
+                        height: 30.0,
+                      ),
+                      Expanded(
+                        child: ListView.builder(
+                            controller: controller,
+                            itemCount: roleList.length,
+                            shrinkWrap: true,
+                            itemBuilder: ((BuildContext context, int index) {
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  const SizedBox(
+                                    height: 10.0,
+                                  ),
+                                  GestureDetector(
+                                    child: Text(
+                                      roleList[index].toString(),
+                                      style: CustomWidget(context: context)
+                                          .CustomSizedTextStyle(
+                                          16.0,
+                                          Theme.of(context).disabledColor,
+                                          FontWeight.w500,
+                                          'FontRegular'),
+                                    ),
+                                    onTap: () {
+                                      setState(() {
+                                        role = roleList[index].toString();
+                                        Navigator.pop(context);
+                                      });
+                                    },
+                                  ),
+                                  const SizedBox(
+                                    height: 10.0,
+                                  ),
+                                  Container(
+                                    height: 0.5,
+                                    color:
+                                    Theme.of(context).hintColor.withOpacity(0.5),
+                                  ),
+                                  const SizedBox(
+                                    height: 10.0,
+                                  ),
+                                ],
+                              );
+                            })),
+                      ),
+                      const SizedBox(
+                        height: 10.0,
+                      ),
+                    ],
+                  ),
+                );
+              }),
+        ));
   }
 }
